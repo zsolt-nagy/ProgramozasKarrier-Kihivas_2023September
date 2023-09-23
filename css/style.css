@@ -15,6 +15,8 @@ html {
 img {
     width: 100px;
     height: 100px;
+    border-radius: 50%;
+    border: 2px solid #ffd900;
 }
 
 body {
@@ -68,6 +70,7 @@ header h1 {
 .clicking-area-container img {
     width: 300px;
     height: 300px;
+    border: none;
 }
 
 .upgrade-stats-cell {
