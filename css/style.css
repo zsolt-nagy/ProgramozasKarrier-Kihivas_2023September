@@ -18,14 +18,111 @@ img {
 }
 
 body {
-    min-width: 1024px;
+    background-color: rgb(24, 24, 24);
+    min-width: 510px;
+}
+
+.wrapper {
+    padding: 10px;
+    background: radial-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .8)), url("/assets/book.png") center/cover no-repeat fixed;
+}
+
+
+header {
+    padding: 1rem 0 2rem;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #ffd900;
+    text-shadow: 1px 1px 5px #c5c5c5;
+    text-align: center;
+}
+
+
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /*  fr = fragment */
+}
+
+.inventory-container {
+    min-width: 510px;
 }
 
 .skills-table,
 .business-table {
-    margin: 0 20px;
+
+    color: #c5c5c5;
+
 }
 
-.main-container {
-    display: flex;
+.clicking-area-container {
+    color: #c5c5c5;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+
+.clicking-area-container img {
+    width: 300px;
+    height: 300px;
+}
+
+.upgrade-stats-cell {
+    width: 64px;
+}
+
+.upgrade-icon-cell {
+
+    padding: 5px;
+}
+
+
+
+@media screen and (max-width: 1400px) {
+    .main-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "gold gold" "perclick persec";
+    }
+
+    .clicking-area-container {
+        color: #c5c5c5;
+
+        cursor: pointer;
+        grid-area: gold;
+    }
+
+    .clicking-area-container.perclick {
+        grid-area: perclick;
+    }
+
+    .clicking-area-container.persec {
+        grid-area: persec;
+    }
+
+}
+
+
+
+
+
+@media screen and (max-width: 992px) {
+    .main-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: "gold" "perclick" "persec";
+    }
+
+
+}
+
+
+
+@media screen and (max-width: 576px) {
+
+    .main-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: "gold" "perclick" "persec";
+    }
 }
