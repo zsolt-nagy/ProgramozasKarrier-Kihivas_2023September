@@ -21,6 +21,17 @@ document.querySelector('.js-clicking-area-container').innerHTML = getTemplate();
 /* ------------------------------------- */
 
 
+function formatPrice(price) {
+    if (price < 1000) return price;
+    let kValue = price / 1000;
+    return `${kValue}K`;
+};
+
+
+/* ------------------------------------------ */
+
+
+
 let skillList = [
     {
         skillName: "Aranykutatás",
@@ -74,8 +85,6 @@ let skillList = [
 ];
 
 
-
-
 function getSkill({ skillName, goldPerClickIncrement, description, amount, price, link }) {
     return `
 <tr>
@@ -85,7 +94,7 @@ function getSkill({ skillName, goldPerClickIncrement, description, amount, price
     </td>
     <td class="upgrade-stats-cell">
         <p>db: ${amount}</p>
-        <p>ár: ${price}</p>
+        <p>ár: ${formatPrice(price)}</p>
     </td>
     <td class="upgrade-icon-cell">
         <img class="skill-image" src="${link}" alt="${skillName}">
@@ -95,11 +104,27 @@ function getSkill({ skillName, goldPerClickIncrement, description, amount, price
 }
 
 
+//solution 1
+/* let rows = [];
+for (let skill of skillList) {
+    rows.push(getSkill(skill));
+}
 
-document.querySelector(".js-skills-tbody").innerHTML = getSkill(skillList[0]);
+document.querySelector(".js-skills-tbody").innerHTML = rows.join(""); */
 
 
 
+//solution 2
+/* let skillHtml = "";
+for (let skill of skillList) {
+    skillHtml += getSkill(skill);
+}
+
+document.querySelector(".js-skills-tbody").innerHTML = skillHtml; */
+
+
+//solution 3
+document.querySelector(".js-skills-tbody").innerHTML = skillList.map(getSkill).join("");
 /* --------------------------------------------------- */
 
 
@@ -163,15 +188,29 @@ function getEmployee({ employeeName, goldPerSecIncrement, description, amount, p
             </td>
             <td class="upgrade-stats-cell">
                 <p>db: ${amount}</p>
-                <p>ár: ${price}</p>
+                <p>ár: ${formatPrice(price)}</p>
             </td>
             <td class="upgrade-text-cell">
                 <p><strong>${employeeName} (${goldPerSecIncrement} arany / mp)</strong></p>
                 <p>${description}</p>
             </td>
         </tr>    
-    `;
+    `
 };
 
+//only one element from the employeeList
+/* document.querySelector(".js-business-tbody").innerHTML = getEmployee(employeeList[0]); */
 
-document.querySelector(".js-business-tbody").innerHTML = getEmployee(employeeList[0]);
+
+
+
+/* let employeeHtml = "";
+for (let employee of employeeList) {
+    employeeHtml += getEmployee(employee);
+}
+document.querySelector(".js-business-tbody").innerHTML = employeeHtml;
+ */
+
+
+
+document.querySelector(".js-business-tbody").innerHTML = employeeList.map(getEmployee).join("");
