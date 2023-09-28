@@ -4,6 +4,7 @@ html {
     font-size: 16px;
     font-family: "Roboto", Arial, sans-serif;
     box-sizing: border-box;
+    background: rgb(0, 0, 0);
 }
 
 * {
@@ -12,21 +13,12 @@ html {
     margin: 0;
 }
 
-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 2px solid #ffd900;
-}
+
 
 body {
-    background-color: rgb(24, 24, 24);
-    min-width: 510px;
-}
-
-.wrapper {
-    padding: 10px;
     background: radial-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .8)), url("/assets/book.png") center/cover no-repeat fixed;
+    min-width: 510px;
+    height: 100vh;
 }
 
 
@@ -70,7 +62,6 @@ header h1 {
 .clicking-area-container img {
     width: 300px;
     height: 300px;
-    border: none;
 }
 
 .upgrade-stats-cell {
@@ -78,8 +69,13 @@ header h1 {
 }
 
 .upgrade-icon-cell {
-
     padding: 5px;
+}
+
+.skill-image {
+    width: 100px;
+    border-radius: 50%;
+    border: 2px solid #ffd900;
 }
 
 
