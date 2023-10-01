@@ -54,14 +54,19 @@ header h1 {
 .clicking-area-container {
     color: #c5c5c5;
     text-align: center;
-    cursor: pointer;
-
 }
 
 
-.clicking-area-container img {
+.gold-coin {
     width: 300px;
     height: 300px;
+    user-select: none;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.gold-coin:hover {
+    transform: scale(1.1);
 }
 
 .upgrade-stats-cell {

@@ -1,3 +1,5 @@
+let clickingArea = document.querySelector('.js-clicking-area-container'); //megkeresi az elemet
+
 
 let seconds = 0;
 let gold = 0;
@@ -5,21 +7,30 @@ let goldPerClick = 1;
 let goldPerSec = 0;
 
 
-function getTemplate() {
+function getClickingAreaTemplate() {
     return `
 <p><strong>${seconds} másodperc</strong></p>
-<img src="/assets/gold-coin-4844191_640.png" alt="Arany klikkelő" >
+<img class="gold-coin" src="/assets/gold-coin-4844191_640.png" alt="Arany klikkelő" data-enable_click="true" > 
 <p><strong>${gold} arany</strong></p>
 <p>${goldPerClick} arany / klikk</p>
 <p>${goldPerSec} arany / mp</p>
 `};
 
-document.querySelector('.js-clicking-area-container').innerHTML = getTemplate();
+/* --------------------------------- */
 
+function handleGoldClicked(event) {
+    if (event.target.dataset.enable_click === "true") {
+        gold += goldPerClick;
 
+        //újra megjeleníti a módosított html-t minden klikk után (nem így csináljuk)
+        /* clickingArea.innerHTML = getClickingAreaTemplate(); */
+
+        render();
+
+    };
+};
 
 /* ------------------------------------- */
-
 
 function formatPrice(price) {
     if (price < 1000) return price;
@@ -27,10 +38,7 @@ function formatPrice(price) {
     return `${kValue}K`;
 };
 
-
 /* ------------------------------------------ */
-
-
 
 let skillList = [
     {
@@ -103,28 +111,6 @@ function getSkill({ skillName, goldPerClickIncrement, description, amount, price
 `
 }
 
-
-//solution 1
-/* let rows = [];
-for (let skill of skillList) {
-    rows.push(getSkill(skill));
-}
-
-document.querySelector(".js-skills-tbody").innerHTML = rows.join(""); */
-
-
-
-//solution 2
-/* let skillHtml = "";
-for (let skill of skillList) {
-    skillHtml += getSkill(skill);
-}
-
-document.querySelector(".js-skills-tbody").innerHTML = skillHtml; */
-
-
-//solution 3
-document.querySelector(".js-skills-tbody").innerHTML = skillList.map(getSkill).join("");
 /* --------------------------------------------------- */
 
 
@@ -179,7 +165,6 @@ let employeeList = [
     },
 ];
 
-
 function getEmployee({ employeeName, goldPerSecIncrement, description, amount, price, link }) {
     return `
         <tr>
@@ -198,19 +183,26 @@ function getEmployee({ employeeName, goldPerSecIncrement, description, amount, p
     `
 };
 
-//only one element from the employeeList
-/* document.querySelector(".js-business-tbody").innerHTML = getEmployee(employeeList[0]); */
+/* --------- */
+
+function render() {
+    clickingArea.innerHTML = getClickingAreaTemplate();  //megjeleníti a függvénnyel a html tartalmat
+    document.querySelector(".js-skills-tbody").innerHTML = skillList.map(getSkill).join("");
+    document.querySelector(".js-business-tbody").innerHTML = employeeList.map(getEmployee).join("");
+
+};
 
 
 
+function initialize() {
+    seconds = 0;
+    gold = 0;
+    goldPerClick = 1;
+    goldPerSec = 0;
 
-/* let employeeHtml = "";
-for (let employee of employeeList) {
-    employeeHtml += getEmployee(employee);
-}
-document.querySelector(".js-business-tbody").innerHTML = employeeHtml;
- */
+    clickingArea.addEventListener('click', handleGoldClicked);  //figyeli a klikk eseményt 
 
+    render();
+};
 
-
-document.querySelector(".js-business-tbody").innerHTML = employeeList.map(getEmployee).join("");
+initialize();
