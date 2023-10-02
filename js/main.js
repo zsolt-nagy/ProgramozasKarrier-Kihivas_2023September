@@ -1,6 +1,6 @@
 let clickingAreaNode = document.querySelector('.js-clicking-area-container');
-let inventoryContainerNode = document.querySelector('.js-inventory-container');
-
+let skillsContainerNode = document.querySelector('.js-skills-container');
+let employeeContainerNode = document.querySelector('.js-employee-container');
 
 let {
     seconds,
@@ -118,7 +118,7 @@ function getInitialState() {
                 link: "./assets/gold_duck.png",
             },
         ],
-  };
+    };
 }
 
 function getClickingAreaTemplate() {
@@ -142,7 +142,7 @@ function handleGoldClicked(event) {
     };
 };
 
-function handleInventoryClicked(event) {
+function handleSkillsClicked(event) {
     let clickIndex = event.target.dataset.index;
     if (typeof clickIndex !== "undefined") {
         let clickedSkill = skillList[clickIndex];
@@ -157,6 +157,21 @@ function handleInventoryClicked(event) {
     }
 };
 
+function handleEmployeeClicked(event) {
+    let clickIndex = event.target.dataset.index;
+    if (typeof clickIndex !== "undefined") {
+        let clickedEmployee = employeeList[clickIndex];
+        if (gold < clickedEmployee.price) {
+            alert("Nincs elég aranyad!");
+            return;
+        }
+        gold -= clickedEmployee.price;
+        goldPerSec += clickedEmployee.goldPerSecIncrement;
+        clickedEmployee.amount += 1;
+        render();
+    };
+
+};
 /* ------------------------------------------ */
 
 
@@ -187,11 +202,11 @@ function getSkill({ skillName, goldPerClickIncrement, description, amount, price
 `
 };
 
-function getEmployee({ employeeName, goldPerSecIncrement, description, amount, price, link }) {
+function getEmployee({ employeeName, goldPerSecIncrement, description, amount, price, link }, index) {
     return `
         <tr>
             <td class="upgrade-icon-cell">
-                <img class="skill-image" src="${link}" alt="${employeeName}" />
+                <img class="skill-image" src="${link}" alt="${employeeName}" data-index = "${index}"/>
             </td>
             <td class="upgrade-stats-cell">
                 <p>db: ${amount}</p>
@@ -222,7 +237,8 @@ function initialize() {
     goldPerSec = data.goldPerSec;
 
     clickingAreaNode.addEventListener('click', handleGoldClicked);
-    inventoryContainerNode.addEventListener('click', handleInventoryClicked);
+    skillsContainerNode.addEventListener('click', handleSkillsClicked);
+    employeeContainerNode.addEventListener('click', handleEmployeeClicked);
 
     render();
 };
