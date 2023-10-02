@@ -8,11 +8,15 @@ let {
     goldPerClick,
     goldPerSec,
     skillList,
-    employeeList
+    employeeList,
+    startTimestamp
 } = getInitialState();
 
 function getInitialState() {
+    let intervalId = setInterval(administrateTime, 200);
     return {
+        intervalId,
+        startTimestamp: new Date().getTime(),
         seconds: 0,
         gold: 0,
         goldPerClick: 1,
@@ -66,7 +70,7 @@ function getInitialState() {
                 amount: 0,
                 price: 100000,
                 link: "./assets/wizardry.png",
-            },
+            }
         ],
         employeeList: [
             {
@@ -119,21 +123,22 @@ function getInitialState() {
             },
         ],
     };
-}
-
-function getClickingAreaTemplate() {
-    return `
-<p><strong>${seconds} másodperc</strong></p>
-<img class="gold-coin" src="/assets/gold-coin-4844191_640.png" alt="Arany klikkelő" data-enable_click="true" > 
-<p><strong>${gold} arany</strong></p>
-<p>${goldPerClick} arany / klikk</p>
-<p>${goldPerSec} arany / mp</p>
-`};
+};
 
 
-
+function administrateTime() {
+    let currentTimestamp = new Date().getTime();
+    let elapsedTime = Math.floor((currentTimestamp - startTimestamp) / 1000);
+    let rewardSecunds = elapsedTime - seconds;
+    if (rewardSecunds > 0) {
+        gold += goldPerSec * rewardSecunds;
+        seconds = elapsedTime;
+        render();
+    }
+};
 
 /* click event listeners */
+
 function handleGoldClicked(event) {
     if (event.target.dataset.enable_click === "true") {
         gold += goldPerClick;
@@ -172,17 +177,28 @@ function handleEmployeeClicked(event) {
     };
 
 };
-/* ------------------------------------------ */
 
 
+
+
+
+
+
+/* ----------------------- Templates ------------------- */
 function formatPrice(price) {
     if (price < 1000) return price;
     let kValue = price / 1000;
     return `${kValue}K`;
 };
 
-
-/* -------------------------------------------- */
+function getClickingAreaTemplate() {
+    return `
+<p><strong>${seconds} másodperc</strong></p>
+<img class="gold-coin" src="/assets/gold-coin-4844191_640.png" alt="Arany klikkelő" data-enable_click="true" > 
+<p><strong>${gold} arany</strong></p>
+<p>${goldPerClick} arany / klikk</p>
+<p>${goldPerSec} arany / mp</p>
+`};
 
 function getSkill({ skillName, goldPerClickIncrement, description, amount, price, link }, index) {
     return `
@@ -219,6 +235,9 @@ function getEmployee({ employeeName, goldPerSecIncrement, description, amount, p
         </tr>    
     `
 };
+
+
+
 
 /* ------------------------------------------- */
 
