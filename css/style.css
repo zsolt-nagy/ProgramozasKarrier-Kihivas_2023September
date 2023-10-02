@@ -58,11 +58,12 @@ header h1 {
 
 
 .gold-coin {
+    margin: 20px 0;
     width: 300px;
     height: 300px;
     user-select: none;
     cursor: pointer;
-    transition: .2s ease;
+
 }
 
 .gold-coin:hover {
@@ -81,6 +82,13 @@ header h1 {
     width: 100px;
     border-radius: 50%;
     border: 2px solid #ffd900;
+    opacity: 0.7;
+    user-select: none;
+}
+
+.skill-image:hover {
+    cursor: pointer;
+    opacity: 1;
 }
 
 
