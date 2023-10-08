@@ -16,7 +16,7 @@ html {
 
 
 body {
-    background: radial-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .8)), url("/assets/book.png") center/cover no-repeat fixed;
+    background: radial-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .8)), url("./assets/book.png") center/cover no-repeat fixed;
     min-width: 510px;
     height: 100vh;
 }
