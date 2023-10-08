@@ -194,7 +194,7 @@ function formatPrice(price) {
 function getClickingAreaTemplate() {
     return `
 <p><strong>${seconds} másodperc</strong></p>
-<img class="gold-coin" src="/assets/gold-coin-4844191_640.png" alt="Arany klikkelő" data-enable_click="true" > 
+<img class="gold-coin" src="./assets/gold-coin-4844191_640.png" alt="Arany klikkelő" data-enable_click="true" > 
 <p><strong>${gold} arany</strong></p>
 <p>${goldPerClick} arany / klikk</p>
 <p>${goldPerSec} arany / mp</p>
